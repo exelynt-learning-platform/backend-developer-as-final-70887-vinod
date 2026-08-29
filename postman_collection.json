@@ -1,0 +1,43 @@
+{
+  "info": {
+    "name": "Resource Booking API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {"key": "baseUrl", "value": "http://localhost:8080"},
+    {"key": "token", "value": ""},
+    {"key": "adminToken", "value": ""},
+    {"key": "reservationId", "value": "1"},
+    {"key": "resourceId", "value": "1"}
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login USER",
+          "request": {"method": "POST", "header": [{"key": "Content-Type", "value": "application/json"}], "body": {"mode": "raw", "raw": "{\n  \"username\": \"user\",\n  \"password\": \"User@123\"\n}"}, "url": "{{baseUrl}}/auth/login"}
+        },
+        {
+          "name": "Login ADMIN",
+          "request": {"method": "POST", "header": [{"key": "Content-Type", "value": "application/json"}], "body": {"mode": "raw", "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"Admin@123\"\n}"}, "url": "{{baseUrl}}/auth/login"}
+        }
+      ]
+    },
+    {
+      "name": "Resources",
+      "item": [
+        {"name": "Get Resources", "request": {"method": "GET", "header": [{"key": "Authorization", "value": "Bearer {{token}}"}], "url": "{{baseUrl}}/resources"}},
+        {"name": "Create Resource ADMIN", "request": {"method": "POST", "header": [{"key": "Authorization", "value": "Bearer {{adminToken}}"}, {"key": "Content-Type", "value": "application/json"}], "body": {"mode": "raw", "raw": "{\n  \"name\": \"Training Room\",\n  \"description\": \"Room with projector\",\n  \"type\": \"ROOM\",\n  \"price\": 750.00,\n  \"available\": true\n}"}, "url": "{{baseUrl}}/resources"}}
+      ]
+    },
+    {
+      "name": "Reservations",
+      "item": [
+        {"name": "Create Reservation USER", "request": {"method": "POST", "header": [{"key": "Authorization", "value": "Bearer {{token}}"}, {"key": "Content-Type", "value": "application/json"}], "body": {"mode": "raw", "raw": "{\n  \"resourceId\": 1,\n  \"startTime\": \"2026-10-10T10:00:00\",\n  \"endTime\": \"2026-10-10T12:00:00\"\n}"}, "url": "{{baseUrl}}/reservations"}},
+        {"name": "List Own Reservations USER", "request": {"method": "GET", "header": [{"key": "Authorization", "value": "Bearer {{token}}"}], "url": "{{baseUrl}}/reservations?page=0&size=10&sortBy=startTime&direction=asc"}},
+        {"name": "Filter Reservations ADMIN", "request": {"method": "GET", "header": [{"key": "Authorization", "value": "Bearer {{adminToken}}"}], "url": "{{baseUrl}}/reservations?status=PENDING&minPrice=100&maxPrice=2000&page=0&size=10&sortBy=price&direction=desc"}}
+      ]
+    }
+  ]
+}
