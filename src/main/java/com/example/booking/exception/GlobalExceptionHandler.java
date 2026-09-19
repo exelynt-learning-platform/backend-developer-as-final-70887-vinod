@@ -37,6 +37,7 @@ public class GlobalExceptionHandler {
         return build(HttpStatus.BAD_REQUEST, "Validation failed", req.getRequestURI(), errors);
     }
 
+<<<<<<< HEAD
 //    @ExceptionHandler(Exception.class)
 //    public ResponseEntity<ErrorResponse> general(Exception ex, HttpServletRequest req) {
 //        return build(HttpStatus.INTERNAL_SERVER_ERROR, "An unexpected error occurred", req.getRequestURI(), Map.of());
@@ -53,6 +54,11 @@ public class GlobalExceptionHandler {
                 req.getRequestURI(),
                 Map.of()
         );
+=======
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> general(Exception ex, HttpServletRequest req) {
+        return build(HttpStatus.INTERNAL_SERVER_ERROR, "An unexpected error occurred", req.getRequestURI(), Map.of());
+>>>>>>> c90fe35f4677fff51712fe3aa0a03b481b4558f0
     }
 
     private ResponseEntity<ErrorResponse> build(HttpStatus status, String message, String path, Map<String,String> errors) {
